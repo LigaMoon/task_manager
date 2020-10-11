@@ -28,9 +28,27 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <!-- This initialises the collapsable module to be run only when the HTML elements have rendered and is needed as we will be adding tasks dynamically to it-->
+    <!-- It also initializes few form elements -->
     <script>
       $(document).ready(function () {
         $(".collapsible").collapsible();
+        $('select').material_select();
+      });
+      $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false, // Close upon selecting a date,
+        container: undefined, // ex. 'body' will append picker to body
+      });
+      // Thiese last two functions were added to make date picker and options selector in form work as old version of materialize is not compatible with chrome any longer
+      document.getElementById('matfix').addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+      document.getElementById('choose_cat').addEventListener('click', function(e) {
+        e.stopPropagation();
       });
     </script>
   </body>
