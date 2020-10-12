@@ -1,15 +1,18 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, flash, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 # MongoDB stores data in json like format - bson so we need to import the below
 from bson.objectid import ObjectId
+# only import env if env.py file path can be found 
+if os.path.exists("env.py"):
+    import env
 
 app = Flask(__name__)
 
-# adding database name and a link to the database (this is optional but is a good idea to iknclude)
-app.config["MONGO_DBNAME"] = 'task_manager'
-#set it as an environ var in heroku as well as lolcal machine
-app.config["MONGO_URI"] = os.getenv('MONGO_URI_TASK')
+# adding database name, database link and secret key environment variables, these need to be set in env.py file and in heroku
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.secret_key = os.environ.get("SECRET_KEY")
 
 # Creating an instance of pymongo with a constructor method
 mongo = PyMongo(app)
@@ -21,7 +24,8 @@ mongo = PyMongo(app)
 def get_tasks():
     # will render tasks.html file that has to be placed in the templates folder!!
     # Then assign tasks to 'tasks' collection under task_manager database and find() will return everything that's in it (mongo=PyMongo(app))
-    return render_template("tasks.html", tasks = mongo.db.tasks.find())
+    tasks  = mongo.db.tasks.find()
+    return render_template("tasks.html", tasks = tasks)
 
 # Add task on this route and use categories catallog to display categories 
 @app.route('/add_task')
