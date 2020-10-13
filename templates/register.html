@@ -3,6 +3,7 @@
 <h3 class="center-align blue-grey-text text-darken-2">Register</h3>
 
 <div class="row">
+    <!-- form is sent using POST method and it is being sent to register functions -->
     <form
         class="col s12 m8 offset-m2"
         method="POST"
@@ -17,20 +18,28 @@
                         id="username"
                         name="username"
                         type="text"
+                        minlength="5"
+                        maxlength="15"
+                        pattern="^[a-zA-Z0-9]{5,15}$"
                         class="validate"
-                    />
-                    <label for="username">Username</label>
+                        required
+                        />
+                        <label for="username">Username</label>
+                    </div>
                 </div>
-            </div>
-            <!-- password -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix blue-grey-text">enhanced_encryption</i>
-                    <input
+                <!-- password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix blue-grey-text">enhanced_encryption</i>
+                        <input
                         id="password"
                         name="password"
                         type="password"
+                        minlength="5"
+                        maxlength="15"
+                        pattern="^[a-zA-Z0-9]{5,15}$"
                         class="validate"
+                        required
                     />
                     <label for="password">Password</label>
                 </div>

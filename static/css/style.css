@@ -14,3 +14,7 @@
 nav .brand-logo, nav ul a, nav a{
     color:#607d8b ;
 }
+
+.flashes h4 {
+    line-height: 2;
+}
