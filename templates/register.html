@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block content %}
+
+<h3 class="center-align blue-grey-text text-darken-2">Register</h3>
+
+<div class="row">
+    <form
+        class="col s12 m8 offset-m2"
+        method="POST"
+        accept="{{ url_for('register') }}"
+    >
+        <div class="card-panel purple lighten-5">
+            <!-- username -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix blue-grey-text">account_box</i>
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        class="validate"
+                    />
+                    <label for="username">Username</label>
+                </div>
+            </div>
+            <!-- password -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix blue-grey-text">enhanced_encryption</i>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        class="validate"
+                    />
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="row">
+                <button
+                    class="col s6 offset-s3 l4 offset-l4 btn-large waves-effect waves-light purple"
+                    type="submit"
+                    name="action"
+                >
+                    Register <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

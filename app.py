@@ -3,6 +3,8 @@ from flask import Flask, flash, render_template, redirect, request, url_for, ses
 from flask_pymongo import PyMongo
 # MongoDB stores data in json like format - bson so we need to import the below
 from bson.objectid import ObjectId
+# Security features used in login page
+from werkzeug.security import generate_password_hash, check_password_hash
 # only import env if env.py file path can be found 
 if os.path.exists("env.py"):
     import env
@@ -26,6 +28,13 @@ def get_tasks():
     # Then assign tasks to 'tasks' collection under task_manager database and find() will return everything that's in it (mongo=PyMongo(app))
     tasks  = mongo.db.tasks.find()
     return render_template("tasks.html", tasks = tasks)
+
+
+# Bring the user to register page
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template("register.html")
+
 
 # Add task on this route and use categories catallog to display categories 
 @app.route('/add_task')
