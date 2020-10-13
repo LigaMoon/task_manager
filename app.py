@@ -54,6 +54,32 @@ def register():
     return render_template("register.html")
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # check if username exists in db and return that record as a dictionary or user and password
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        # If there is a user that match entered username
+        if existing_user:
+            # ensure hashed password matches user input, it takes 2 variables, first is password from the returned dictionary above, the second is entered password, both are compared
+            if check_password_hash(
+                existing_user["password"], request.form.get("password")):
+                    session["user"] = request.form.get("username").lower()
+                    flash("Welcome, {}".format(request.form.get("username")))
+            else:
+                # Invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for('login'))
+            
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for('login'))
+
+    return render_template("login.html")
+
 # Add task on this route and use categories catallog to display categories 
 @app.route('/add_task')
 def add_task():
