@@ -1,16 +1,18 @@
 {% extends 'base.html' %} {% block content %}
 
+<h3 class="center-align blue-grey-text text-darken-2">Tasks</h3>
+
 <!-- loop thorugh a list in the tasks collecton and return the below values for each entry -->
 <!-- Code for the collapsable module(acordeon) -->
-<ul class="collapsible" data-collapsible="accordion">
+<ul class="collapsible">
     {% for task in tasks %}
     <li>
-    <div class="collapsible-header row">
+    <div class="collapsible-header deep-orange lighten-5 blue-grey-text text-darken-1 row">
             <div class="col s3">
                 <i class="material-icons">expand_more</i>
-                <a href="{{url_for('delete_task', task_id=task._id)}}" class="waves-effect waves-light btn btn-small">Done</a>
+                <a href="{{url_for('delete_task', task_id=task._id)}}" class="waves-effect waves-light btn btn-small deep-orange accent-2">Done</a>
                 <!-- Once clicked, it will bring the user to the edit_task/_id page. _id is obtained from tasks collections as an attribute, in the same manner as task.name etc. -->
-                <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn btn-small blue">Edit</a>
+                <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn btn-small deep-orange accent-2">Edit</a>
             </div>
             <div class="col s9 task-header">
                 <strong>{{task.task_name}}</strong> - {{task.due_date}}
