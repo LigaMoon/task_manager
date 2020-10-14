@@ -27,7 +27,8 @@ mongo = PyMongo(app)
 def get_tasks():
     # will render tasks.html file that has to be placed in the templates folder!!
     # Then assign tasks to 'tasks' collection under task_manager database and find() will return everything that's in it (mongo=PyMongo(app))
-    tasks  = mongo.db.tasks.find()
+    # convert to list so that it can be used more than once on an html file and commented out
+    tasks  = list(mongo.db.tasks.find())
     return render_template("tasks.html", tasks = tasks)
 
 

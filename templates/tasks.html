@@ -15,15 +15,15 @@
                 <a href="{{url_for('edit_task', task_id=task._id)}}" class="waves-effect waves-light btn btn-small deep-orange accent-2">Edit</a>
             </div>
             <div class="col s9 task-header">
-                <strong>{{task.task_name}}</strong> - {{task.due_date}}
+                <strong>{{task.task_name}}</strong> : {{task.due_date}}
+                {% if task.is_urgent == "on" %}
+                    <i class="material-icons blue-grey-text tooltipped" data-position="right" data-tooltip="This is urgent">announcement</i>
+                {% endif %}
             </div>
         </div>
         <div class="collapsible-body">
-            <span>
-                {{task.task_description}}
-                <!-- {{task.cetegory_name}}
-                    {{task.is_urgent}} -->
-            </span>
+            <strong>{{  task.category_name}}</strong>
+            <p>{{task.task_description}}</p>
         </div>
     </li>
     {% endfor %}
