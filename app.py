@@ -19,6 +19,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 # Creating an instance of pymongo with a constructor method
 mongo = PyMongo(app)
 
+
 @app.route('/')
 # Make a connection to the database whenever .../get_tasks is accessed
 # Because get_tasks is directly under '/', it will be called as default
@@ -88,7 +89,20 @@ def profile(username):
     # Grab the sessions user's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    return render_template("profile.html", username = username)
+    
+    # only show profile if a session cookie exists and user has been logged it, this will avoid others using  usernames to access profiles
+    if session["user"]:
+        return render_template("profile.html", username = username)
+        
+    return redirect(url_for('login'))
+
+
+@app.route('/logout')
+def logout():
+    # Remove user from session cookies by logging out
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for('login'))
 
 
 # Add task on this route and use categories catallog to display categories 
