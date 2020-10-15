@@ -111,6 +111,7 @@ def logout():
 def add_task():
     return render_template('addtasks.html', categories=mongo.db.categories.find())
 
+
 # When a task is submitted on the add_task page, it is posted to insert_task which inserts data in the tasks collection and converts data to a dictionary. Once done it redirects the user to the get_task page and newly added task is dipslayed
 @app.route('/insert_task', methods=['POST'])
 def insert_task():

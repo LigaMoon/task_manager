@@ -40,7 +40,7 @@
                         <!-- only certain links are visible to users that are logged in or logged out -->
                         {% if session.user %}
                             <li><a href="{{ url_for('profile', username = session['user']) }}">Profile</a></li>
-                            <li><a href="#">New Task</a></li>
+                            <li><a href="{{ url_for('add_task') }}">New Task</a></li>
                             <li><a href="#">Manage Categories</a></li>
                             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                         {% else %}
@@ -57,7 +57,7 @@
                 <li><a href="{{ url_for('get_tasks') }}">Home</a></li>
                 {% if session.user %}
                     <li><a href="{{ url_for('profile', username = session['user']) }}">Profile</a></li>
-                    <li><a href="#">New Task</a></li>
+                    <li><a href="{{ url_for('add_task') }}">New Task</a></li>
                     <li><a href="#">Manage Categories</a></li>
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                 {% else %}
@@ -93,29 +93,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="{{ url_for('static', filename='js/script.js')}}"></script>
         {% block scripts %}{% endblock %}
-        <!-- This initialises the collapsable module to be run only when the HTML elements have rendered and is needed as we will be adding tasks dynamically to it-->
-        <!-- It also initializes few form elements -->
-        <script>
-            $(".datepicker").pickadate({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year,
-                today: "Today",
-                clear: "Clear",
-                close: "Ok",
-                closeOnSelect: false, // Close upon selecting a date,
-                container: undefined, // ex. 'body' will append picker to body
-            });
-            // Thiese last two functions were added to make date picker and options selector in form work as old version of materialize is not compatible with chrome any longer
-            document
-                .getElementById("matfix")
-                .addEventListener("click", function (e) {
-                    e.stopPropagation();
-                });
-            document
-                .getElementById("choose_cat")
-                .addEventListener("click", function (e) {
-                    e.stopPropagation();
-                });
-        </script>
     </body>
 </html>
