@@ -109,7 +109,8 @@ def logout():
 # Add task on this route and use categories catallog to display categories 
 @app.route('/add_task')
 def add_task():
-    return render_template('addtasks.html', categories=mongo.db.categories.find())
+    categories = mongo.db.categories.find().sort("category_name",1)
+    return render_template('addtasks.html', categories = categories )
 
 
 # When a task is submitted on the add_task page, it is posted to insert_task which inserts data in the tasks collection and converts data to a dictionary. Once done it redirects the user to the get_task page and newly added task is dipslayed

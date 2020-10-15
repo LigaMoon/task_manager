@@ -12,18 +12,21 @@
         <!-- Creates a dropdown for the categories -->
         <div class="row">
             <div class="input-field col s12">
-                <i class="material-icons prefix">poll</i>
-                <select id="category" name="category_name">
-                    <option value="" disabled selected>
-                        Choose your option
-                    </option>
+                <i class="material-icons prefix">folder_open</i>
+                <select
+                    id="category_name"
+                    name="category_name"
+                    class="validate"
+                    required
+                >
+                    <option value="" disabled selected>Choose Category</option>
                     {% for cat in categories %}
-                    <option value="{{cat.category_name}}">
-                        {{cat.category_name}}
-                    </option>
+                        <option value="{{cat.category_name}}">
+                            {{cat.category_name}}
+                        </option>
                     {% endfor %}
                 </select>
-                <label>Task Category</label>
+                <label for="category_name">Task Category</label>
             </div>
         </div>
         <!-- Creates a task name input with required 5-15 length -->
