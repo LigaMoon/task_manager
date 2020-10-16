@@ -107,19 +107,33 @@ def logout():
 
 
 # Add task on this route and use categories catallog to display categories 
-@app.route('/add_task')
+@app.route('/add_task', methods=["GET", "POST"])
 def add_task():
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        task={
+            "category_name": request.form.get("category_name"),
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.insert_one(task)
+        flash("Task succesfully Added")
+        return redirect(url_for("get_tasks"))
+        
     categories = mongo.db.categories.find().sort("category_name",1)
     return render_template('addtasks.html', categories = categories )
 
 
 # When a task is submitted on the add_task page, it is posted to insert_task which inserts data in the tasks collection and converts data to a dictionary. Once done it redirects the user to the get_task page and newly added task is dipslayed
-@app.route('/insert_task', methods=['POST'])
-def insert_task():
-    # new variable that equates the tasks collection
-    tasks = mongo.db.tasks
-    tasks.insert_one(request.form.to_dict())
-    return redirect(url_for('get_tasks'))
+# @app.route('/insert_task', methods=['POST'])
+# def insert_task():
+#     # new variable that equates the tasks collection
+#     tasks = mongo.db.tasks
+#     tasks.insert_one(request.form.to_dict())
+#     return redirect(url_for('get_tasks'))
 
 # Once a specific task with task_id = _id is accessed, task equals to that specific task (only one).
 @app.route('/edit_task/<task_id>')
