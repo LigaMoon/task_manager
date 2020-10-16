@@ -3,25 +3,26 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {% block styles %} {% endblock %}
-        <title>Task Manager</title>
-
         <!-- Materialize icons -->
         <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
         />
         <!-- Materialize CDN-->
         <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-            type="text/css"
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css"
         />
         <!-- Link up my own static stylesheet -->
         <link
-            rel="stylesheet"
-            href="{{url_for('static',filename='css/style.css')}}"
+        rel="stylesheet"
+        href="{{url_for('static',filename='css/style.css')}}"
+        type="text/css"
         />
+        {% block styles %}
+        {% endblock %}
+        <title>Task Manager</title>
     </head>
     <body>
         <header>
@@ -80,7 +81,7 @@
             {% endwith %}
         </section>
 
-        <main>
+        <main class="container">
             {% block content %} {% endblock %}
         </main>
 
@@ -91,7 +92,7 @@
             crossorigin="anonymous"
         ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
         {% block scripts %}{% endblock %}
     </body>
 </html>

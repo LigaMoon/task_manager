@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, render_template, redirect, request, url_for, session
+from flask import (Flask, flash, render_template, redirect, request, url_for, session)
 from flask_pymongo import PyMongo
 # MongoDB stores data in json like format - bson so we need to import the below
 from bson.objectid import ObjectId
