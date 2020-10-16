@@ -138,23 +138,36 @@ def add_task():
 # Once a specific task with task_id = _id is accessed, task equals to that specific task (only one).
 @app.route('/edit_task/<task_id>', methods=["GET", "POST"])
 def edit_task(task_id):
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        submit = {
+            "category_name": request.form.get("category_name"),
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit)
+        flash("Task succesfully Updated")
+
     # Returns task id
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     categories = mongo.db.categories.find().sort("catedgory_name",1)
     return render_template('edittasks.html', task = task, categories = categories)
 
-@app.route('/update_task/<task_id>', methods=["POST"])
-def update_task(task_id):
-    tasks = mongo.db.tasks
-    tasks.update( {'_id': ObjectId(task_id)},
-    { 
-        'task_name': request.form.get('task_name'),
-        'category_name': request.form.get('category_name'),
-        'task_description': request.form.get('task_description'),
-        'due_date': request.form.get('due_date'),
-        'is_urgent': request.form.get('is_urgent')
-    })
-    return redirect(url_for('get_tasks'))
+# @app.route('/update_task/<task_id>', methods=["POST"])
+# def update_task(task_id):
+#     tasks = mongo.db.tasks
+#     tasks.update( {'_id': ObjectId(task_id)},
+#     { 
+#         'task_name': request.form.get('task_name'),
+#         'category_name': request.form.get('category_name'),
+#         'task_description': request.form.get('task_description'),
+#         'due_date': request.form.get('due_date'),
+#         'is_urgent': request.form.get('is_urgent')
+#     })
+#     return redirect(url_for('get_tasks'))
 
 @app.route('/delete_task/<task_id>')
 def delete_task(task_id):
