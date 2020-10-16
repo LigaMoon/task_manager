@@ -122,7 +122,7 @@ def add_task():
         mongo.db.tasks.insert_one(task)
         flash("Task succesfully Added")
         return redirect(url_for("get_tasks"))
-        
+
     categories = mongo.db.categories.find().sort("category_name",1)
     return render_template('addtasks.html', categories = categories )
 
@@ -136,12 +136,12 @@ def add_task():
 #     return redirect(url_for('get_tasks'))
 
 # Once a specific task with task_id = _id is accessed, task equals to that specific task (only one).
-@app.route('/edit_task/<task_id>')
+@app.route('/edit_task/<task_id>', methods=["GET", "POST"])
 def edit_task(task_id):
     # Returns task id
-    the_task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
-    all_categories = mongo.db.categories.find()
-    return render_template('edittasks.html', task = the_task, categories = all_categories)
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    categories = mongo.db.categories.find().sort("catedgory_name",1)
+    return render_template('edittasks.html', task = task, categories = categories)
 
 @app.route('/update_task/<task_id>', methods=["POST"])
 def update_task(task_id):
