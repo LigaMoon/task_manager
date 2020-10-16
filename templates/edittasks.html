@@ -9,7 +9,7 @@
             <div class="input-field col s12" id="choose_cat">
                 <i class="material-icons prefix">poll</i>
                 <select id='category' name="category_name">
-                    <option value="" disabled selected>Choose Category</option>
+                    <option value="" disabled>Choose Category</option>
                     <!-- If there is a categorie already chosen previously, display that.If not then show all options -->
                     {% for cat in categories %}
                         {% if cat.category_name == task.category_name %}
@@ -34,8 +34,16 @@
             <div class="input-field col s12">
                 <i class="material-icons prefix">subject</i>
                 <!-- display the existing task descritpion -->
-                <textarea id="task_description" name="task_description" class="materialize-textarea" >{{task.task_description}}</textarea>
+                <textarea id="task_description" name="task_description" class="materialize-textarea" >
+                    {{- task.task_description -}}</textarea>
                 <label for="task_description">Task Description</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12" id="matfix">
+                <i class="material-icons prefix">today</i>
+                <input id="due_date" name="due_date" type="text" class="datepicker" value="{{task.due_date}}">
+                <label for="due_date">Due Date</label>
             </div>
         </div>
         <div class="row">
@@ -52,17 +60,22 @@
                 </label>
             </div>
         </div>
+        <!-- Submit Button -->
         <div class="row">
-            <div class="input-field col s12" id="matfix">
-                <i class="material-icons prefix">today</i>
-                <input id="due_date" name="due_date" type="text" class="datepicker" value="{{task.due_date}}">
-                <label for="due_date">Due Date</label>
+            <div class="col s12 center-align">
+                <a href="{{ url_for('get_tasks') }}" class="btn-large waves-effect waves-light pink">
+                    Cancel
+                    <i class="material-icons right">playlist_add</i>
+                </a>
+                <button
+                    class="btn-large waves-effect waves-light teal"
+                    type="submit"
+                    name="action"
+                >
+                    Add Task
+                    <i class="material-icons right">playlist_add</i>
+                </button>
             </div>
-        </div>
-        <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Edit Task
-                <i class="material-icons right">playlist_add</i>
-              </button>
         </div>
     </form>
 </div>
