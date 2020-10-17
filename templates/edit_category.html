@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3 class="center-align blue-grey-text text-darken-2">Add Category</h3>
+<h3 class="center-align blue-grey-text text-darken-2">Edit Category</h3>
 <!-- Form elements taken from materialize -->
-<div class="row card-panel teal lighten-5 blue-grey-text text-darken-2">
+<div class="row card-panel blue lighten-5 blue-grey-text text-darken-2">
     <!-- form submits data to /insert_task page -->
     <form
-        action="{{ url_for('add_category') }}"
+        action="{{ url_for('edit_category', category_id = category._id) }}"
         method="POST"
         class="col s12 m8 offset-m2"
     >
@@ -21,6 +21,7 @@
                     minlength="3"
                     maxlength="25"
                     type="text"
+                    value="{{ category.category_name }}"
                     class="validate"
                     required
                 />
@@ -36,12 +37,12 @@
                     <i class="material-icons right">cancel</i>
                 </a>
                 <button
-                    class="btn-large teal lighten-4 blue-grey-text text-darken-2"
+                    class="btn-large blue lighten-4 blue-grey-text"
                     type="submit"
                     name="action"
                 >
-                <i class="material-icons right">playlist_add</i>
-                    Add Category
+                <i class="material-icons right">border_color</i>
+                    Edit Category
                 </button>
             </div>
         </div>

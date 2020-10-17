@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col s12 center-align">
-            <a href="{{ url_for('add_category') }}" class="btn-large">
+            <a href="{{ url_for('add_category') }}" class="btn-large teal lighten-4 blue-grey-text text-darken-2">
                 Add Category
                 <i class="material-icons right">playlist_add</i>
             </a>
@@ -19,8 +19,8 @@
                     <span class="card-title">{{ cat.category_name }}</span>
                 </div>
                 <div class="card-action">
-                    <a href="#" class="btn blue lighten-4 blue-grey-text">Edit</a>
                     <a href="#" class="btn red lighten-4 blue-grey-text">Delete</a>
+                    <a href="{{ url_for('edit_category', category_id = cat._id) }}" class="btn blue lighten-4 blue-grey-text">Edit</a>
                 </div>
             </div>
         </div>
