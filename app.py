@@ -127,14 +127,6 @@ def add_task():
     return render_template('addtasks.html', categories = categories )
 
 
-# When a task is submitted on the add_task page, it is posted to insert_task which inserts data in the tasks collection and converts data to a dictionary. Once done it redirects the user to the get_task page and newly added task is dipslayed
-# @app.route('/insert_task', methods=['POST'])
-# def insert_task():
-#     # new variable that equates the tasks collection
-#     tasks = mongo.db.tasks
-#     tasks.insert_one(request.form.to_dict())
-#     return redirect(url_for('get_tasks'))
-
 # Once a specific task with task_id = _id is accessed, task equals to that specific task (only one).
 @app.route('/edit_task/<task_id>', methods=["GET", "POST"])
 def edit_task(task_id):
@@ -156,24 +148,19 @@ def edit_task(task_id):
     categories = mongo.db.categories.find().sort("catedgory_name",1)
     return render_template('edittasks.html', task = task, categories = categories)
 
-# @app.route('/update_task/<task_id>', methods=["POST"])
-# def update_task(task_id):
-#     tasks = mongo.db.tasks
-#     tasks.update( {'_id': ObjectId(task_id)},
-#     { 
-#         'task_name': request.form.get('task_name'),
-#         'category_name': request.form.get('category_name'),
-#         'task_description': request.form.get('task_description'),
-#         'due_date': request.form.get('due_date'),
-#         'is_urgent': request.form.get('is_urgent')
-#     })
-#     return redirect(url_for('get_tasks'))
 
 @app.route('/delete_task/<task_id>')
 def delete_task(task_id):
     mongo.db.tasks.remove({'_id': ObjectId(task_id)})
     flash("Task Succesfully deleted")
     return redirect(url_for('get_tasks'))
+
+
+@app.route('/get_categories')
+def get_categories():
+    categories=list(mongo.db.categories.find().sort("category_name",1))
+    return render_template("categories.html", categories = categories)
+
 
 if __name__ == '__main__':
     app.run(host = os.environ.get('IP'),
