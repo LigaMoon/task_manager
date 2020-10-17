@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="center-align blue-grey-text text-darken-2">Add Category</h3>
+<!-- Form elements taken from materialize -->
+<div class="row card-panel teal lighten-5 blue-grey-text text-darken-2">
+    <!-- form submits data to /insert_task page -->
+    <form
+        action="{{ url_for('add_category') }}"
+        method="POST"
+        class="col s12 m8 offset-m2"
+    >
+
+    <!-- Creates a task name input with required 5-15 length -->
+    <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">assignment</i>
+                <input
+                    id="category_name"
+                    name="category_name"
+                    minlength="3"
+                    maxlength="25"
+                    type="text"
+                    class="validate"
+                    required
+                />
+                <label for="category_name">Category Name</label>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="row">
+            <div class="col s12 center-align">
+                <button
+                    class="btn-large waves-effect waves-light teal"
+                    type="submit"
+                    name="action"
+                >
+                <i class="material-icons right">playlist_add</i>
+                    Add Category
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
